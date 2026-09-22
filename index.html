@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Web 音频编辑器 — 波形 / 裁剪 / 淡入淡出 / 导出</title>
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="app-header">
+    <h1>Web 音频编辑器</h1>
+    <div class="toolbar">
+      <button id="btnOpen" class="btn primary" title="打开音频文件 (快捷键 O)">📂 打开</button>
+      <div class="divider" aria-hidden="true"></div>
+      <button id="btnPlay" class="btn" disabled title="播放 / 暂停 (空格)">▶ 播放</button>
+      <button id="btnStop" class="btn" disabled title="停止 (Home 回到开头)">■ 停止</button>
+      <div class="divider" aria-hidden="true"></div>
+      <button id="btnCrop" class="btn" disabled title="保留选区，删除其余部分">✂ 裁剪到选区</button>
+      <button id="btnDelete" class="btn" disabled title="删除选区内容">🗑 删除选区</button>
+      <button id="btnFadeIn" class="btn" disabled title="在选区上做线性淡入">↗ 淡入</button>
+      <button id="btnFadeOut" class="btn" disabled title="在选区上做线性淡出">↘ 淡出</button>
+      <button id="btnUndo" class="btn" disabled title="撤销上一次编辑 (Ctrl+Z)">↶ 撤销</button>
+      <div class="divider" aria-hidden="true"></div>
+      <button id="btnExport" class="btn primary" disabled title="导出 WAV 文件">💾 导出 WAV</button>
+    </div>
+    <input type="file" id="fileInput" accept="audio/*,.wav,.mp3,.m4a,.aac,.ogg,.flac,.webm" hidden />
+  </header>
+
+  <section class="info-bar">
+    <div class="info-item"><span class="info-label">时长</span><span id="infoDuration">—</span></div>
+    <div class="info-item"><span class="info-label">采样率</span><span id="infoSampleRate">—</span></div>
+    <div class="info-item"><span class="info-label">声道</span><span id="infoChannels">—</span></div>
+    <div class="info-item"><span class="info-label">选区</span><span id="infoSelection">—</span></div>
+    <div class="info-item"><span class="info-label">光标</span><span id="infoCursor">0.000 s</span></div>
+    <div class="info-hint">滚轮上下滚动 = 缩放 &nbsp;|&nbsp; Shift + 滚轮 = 平移 &nbsp;|&nbsp; 拖拽框选 &nbsp;|&nbsp; 双击清除选区</div>
+  </section>
+
+  <main class="workspace">
+    <div id="dropOverlay" class="drop-overlay" hidden>松开鼠标以载入音频文件</div>
+    <canvas id="waveCanvas" class="wave-canvas"></canvas>
+    <div id="emptyHint" class="empty-hint">
+      <p>点击 <strong>「打开」</strong> 或直接把音频文件拖到这里</p>
+      <p class="sub">支持 WAV / MP3 / M4A / OGG / FLAC 等浏览器可解码格式</p>
+    </div>
+    <div id="loading" class="loading" hidden>
+      <div class="spinner"></div><span id="loadingText">解码中…</span>
+    </div>
+  </main>
+
+  <div id="toastHost" class="toast-host" aria-live="polite"></div>
+
+  <script src="js/dsp.js"></script>
+  <script src="js/protocol.js"></script>
+  <script src="js/waveform.js"></script>
+  <script src="js/engine.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
