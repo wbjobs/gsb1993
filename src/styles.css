@@ -1,0 +1,261 @@
+:root {
+  color-scheme: dark;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #08111f;
+  color: #e7eefb;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top left, rgba(61, 139, 255, 0.22), transparent 32rem),
+    #08111f;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button {
+  border: 1px solid #3f7cff;
+  border-radius: 0.65rem;
+  padding: 0.65rem 1rem;
+  background: #2563eb;
+  color: white;
+  cursor: pointer;
+  transition: transform 0.15s ease, opacity 0.15s ease, background 0.15s ease;
+}
+
+button:hover:not(:disabled) {
+  transform: translateY(-1px);
+  background: #3470ee;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+button.secondary {
+  border-color: #30415f;
+  background: #16233a;
+}
+
+button.accent {
+  border-color: #43c17e;
+  background: #16a34a;
+}
+
+.app-shell {
+  width: min(1180px, calc(100% - 32px));
+  margin: 32px auto;
+  padding: 24px;
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  border-radius: 1.25rem;
+  background: rgba(10, 18, 32, 0.9);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.38);
+}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.eyebrow {
+  margin: 0 0 6px;
+  color: #74a7ff;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(1.7rem, 4vw, 2.5rem);
+}
+
+.subtitle {
+  margin: 8px 0 0;
+  color: #9cafca;
+}
+
+.header-actions,
+.button-group {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.drop-zone.dragging {
+  outline: 2px dashed #6ea1ff;
+  outline-offset: 4px;
+  background: rgba(37, 99, 235, 0.12);
+}
+
+.canvas-wrap {
+  position: relative;
+  height: 320px;
+  overflow: hidden;
+  border: 1px solid #27374f;
+  border-radius: 1rem;
+  background: #070d18;
+}
+
+canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#waveCanvas {
+  touch-action: none;
+  outline: none;
+}
+
+#waveCanvas:focus-visible {
+  box-shadow: inset 0 0 0 2px #6ea1ff;
+}
+
+#overlayCanvas {
+  pointer-events: none;
+}
+
+.empty-state {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  gap: 8px;
+  color: #8ea4c4;
+  text-align: center;
+  pointer-events: none;
+}
+
+.empty-state strong {
+  font-size: 1.25rem;
+  color: #dce8fb;
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 18px;
+  padding: 16px;
+  border: 1px solid #22324d;
+  border-radius: 1rem;
+  background: #0d1728;
+}
+
+.readouts {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  gap: 10px 18px;
+  color: #b5c6df;
+  font-variant-numeric: tabular-nums;
+}
+
+.controls-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 16px;
+}
+
+.controls-grid label {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px 12px;
+  padding: 14px;
+  border: 1px solid #22324d;
+  border-radius: 0.9rem;
+  background: #0d1728;
+}
+
+.controls-grid span {
+  color: #9cafca;
+}
+
+.controls-grid strong {
+  font-variant-numeric: tabular-nums;
+}
+
+.controls-grid input {
+  grid-column: 1 / -1;
+  width: 100%;
+}
+
+.controls-grid input:disabled {
+  opacity: 0.45;
+}
+
+.status-bar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 16px;
+  color: #9cafca;
+}
+
+progress {
+  flex: 1;
+  height: 8px;
+}
+
+.toast-host {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  display: grid;
+  gap: 10px;
+  z-index: 10;
+}
+
+.toast {
+  max-width: min(420px, calc(100vw - 40px));
+  padding: 12px 14px;
+  border: 1px solid #5b6b85;
+  border-radius: 0.75rem;
+  background: #182338;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+}
+
+.toast.error {
+  border-color: #ef4444;
+}
+
+.toast.warning {
+  border-color: #f59e0b;
+}
+
+.toast.success {
+  border-color: #22c55e;
+}
+
+@media (max-width: 820px) {
+  .app-header,
+  .toolbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .controls-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .canvas-wrap {
+    height: 260px;
+  }
+}

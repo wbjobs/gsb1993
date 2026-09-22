@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>波形音频编辑器</title>
+    <link rel="stylesheet" href="./src/styles.css">
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="app-header">
+        <div>
+          <p class="eyebrow">Web Audio · Canvas · Web Worker</p>
+          <h1>波形音频编辑器</h1>
+          <p class="subtitle">导入音频后裁剪选区、调整淡入淡出，并导出标准 16-bit PCM WAV。</p>
+        </div>
+        <div class="header-actions">
+          <button id="loadDemoButton" type="button" class="secondary">载入演示音频</button>
+          <button id="openFileButton" type="button">选择音频</button>
+          <input id="fileInput" type="file" accept="audio/*,.wav,.mp3,.m4a,.aac,.ogg,.flac,.webm" hidden>
+        </div>
+      </header>
+
+      <section class="drop-zone" id="dropZone" aria-label="音频波形工作区">
+        <div class="canvas-wrap" id="canvasWrap">
+          <canvas id="waveCanvas" tabindex="0" aria-label="音频波形，可拖动裁剪和淡入淡出手柄"></canvas>
+          <canvas id="overlayCanvas" aria-hidden="true"></canvas>
+          <div id="emptyState" class="empty-state">
+            <strong>拖入音频文件</strong>
+            <span>或点击右上角选择音频 / 载入演示音频</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="toolbar" aria-label="播放和编辑控制">
+        <div class="button-group">
+          <button id="playButton" type="button" disabled>播放</button>
+          <button id="stopButton" type="button" class="secondary" disabled>停止</button>
+          <button id="resetButton" type="button" class="secondary" disabled>重置编辑</button>
+        </div>
+
+        <div class="readouts">
+          <span id="fileReadout">未载入音频</span>
+          <span id="timeReadout">00:00.000 / 00:00.000</span>
+          <span id="selectionReadout">选区 00:00.000</span>
+        </div>
+
+        <button id="exportButton" type="button" class="accent" disabled>导出 WAV</button>
+      </section>
+
+      <section class="controls-grid" aria-label="裁剪与淡入淡出参数">
+        <label>
+          <span>裁剪起点</span>
+          <input id="startInput" type="range" min="0" max="0" step="0.001" value="0" disabled>
+          <strong id="startValue">0.000s</strong>
+        </label>
+        <label>
+          <span>裁剪终点</span>
+          <input id="endInput" type="range" min="0" max="0" step="0.001" value="0" disabled>
+          <strong id="endValue">0.000s</strong>
+        </label>
+        <label>
+          <span>淡入时长</span>
+          <input id="fadeInInput" type="range" min="0" max="0" step="0.001" value="0" disabled>
+          <strong id="fadeInValue">0.000s</strong>
+        </label>
+        <label>
+          <span>淡出时长</span>
+          <input id="fadeOutInput" type="range" min="0" max="0" step="0.001" value="0" disabled>
+          <strong id="fadeOutValue">0.000s</strong>
+        </label>
+      </section>
+
+      <section class="status-bar" aria-live="polite">
+        <span id="statusText">准备就绪</span>
+        <progress id="progressBar" value="0" max="1" hidden></progress>
+      </section>
+    </main>
+
+    <div id="toastHost" class="toast-host" aria-live="assertive"></div>
+    <script type="module" src="./src/app.js"></script>
+  </body>
+</html>
